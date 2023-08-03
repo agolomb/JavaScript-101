@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chapter 3</title>
+  </head>
+  <body>
+    <h4>Functions</h4>
+    <h5>Defining a Function</h5>
+    <p>Some functions produce a value. Others will produce a side effect.</p>
+    <script>
+      //Side effect example
+      const sayHello = function () {
+        console.log("Hello"); //the side effect, no value is produced
+      };
+      sayHello();
+      //A function that produces a value...
+      const power = function (base, exponent) {
+        let result = 1;
+        for (let count = 0; count < exponent; count++) {
+          console.log(count, "base: ", base);
+          result *= base;
+        }
+        return result;
+      };
+
+      console.log(power(2, 10));
+      //console.log(globalVariable); //not available in this script tag
+    </script>
+    <h5>Bindings and Scope</h5>
+    <p>
+      When declare a variable outside of all functions or blocks that variable
+      is in the global scope and is available to all functions and blocks.
+    </p>
+    <script>
+      let globalVariable = 400;
+      function scopeTest() {
+        let localVariable = "Can't see me in the global scope";
+        console.log(globalVariable); //this is totally fine b/c globalVariable is available in the global scope AKA everywhere!
+      }
+      scopeTest();
+      //console.log(localVariable); this causes on error
+    </script>
+    <h5>Nested Scope</h5>
+    <p>
+      Blocks and functions can live within other blocks and functions. This
+      affects the scope of the variables within them.
+    </p>
+    <script>
+      const hummus = function (numberOfPeople) {
+        const ingredient = function (amount, unit, name) {
+          let ingredientAmount = amount * numberOfPeople;
+          if (ingredientAmount > 1) {
+            unit += "s";
+          }
+          console.log(`${ingredientAmount} ${unit} ${name}`);
+        };
+        ingredient(1, "can", "chickpeas");
+        ingredient(0.25, "cup", "tahini");
+        ingredient(0.25, "cup", "lemon juice");
+        ingredient(1, "clove", "garlic");
+        ingredient(2, "tablespoon", "olive oil");
+        ingredient(0.5, "teaspoon", "cumin");
+      };
+
+      console.log(hummus(2));
+      //WE CANNOT access ingredients here. It's only available inside fX hummus.
+    </script>
+    <h5>Functions as values</h5>
+    <p>Ex: let fireMissiles = function() { console.log("Missiles fired!") }</p>
+    <p>
+      This structure is a function expression but notice that we used "let."
+      This means we can change the value that fireMissiles points. FYI we can't
+      do this if we use const instead of let.
+    </p>
+    <script>
+      //How we change the value of functions...
+      let status = "Peace";
+      let fireMissiles = function (status) {
+        if (status === "Peace") {
+          console.log("Don't fire missiles!");
+        }
+      };
+      fireMissiles("Peace");
+      //But we can change what fx fireMissiles does
+      fireMissiles = function () {
+        console.log("I don't care, fire the missiles!");
+      };
+      fireMissiles();
+    </script>
+    <h5>Function declarations</h5>
+    <p>
+      function sayYes() {console.log("Yes")} is in the format of a function
+      declaration. These functions HOIST!
+    </p>
+    <script>
+      //This totally works and shows that function sayYes is hoisted to the top.
+      sayYes();
+      function sayYes() {
+        console.log("Yes");
+      }
+    </script>
+    <h5>Arrow functions</h5>
+    <p>let sayBye = () => {console.log("Bye")}. This is an arrow function.</p>
+    <p>
+      What's unique about arrow functions? If they only have one parameter, we
+      can omit the parantheses and we also do not need the return statement!
+    </p>
+    <p>
+      Arrow functions and function expressions generally do the same thing.
+      Arrow functions are less verbose and are seen often.
+    </p>
+    <script>
+      //Here's an example of an arrow function
+      const sayBye = () => {
+        console.log("Bye");
+      };
+      sayBye();
+      const square1 = (x) => {
+        return x * x;
+      };
+      const square2 = (x) => x * x; //shows that we don't need the return statement b/c it's an arrow function.
+      console.log(square1(2), square2(3));
+    </script>
+    <h5>Optional Arguments</h5>
+    <p>
+      We can have a function that takes one parameter, pass lots of arguments
+      but in JavaScript, it'll take the first and ignore the rest. Also if a
+      function takes in many and we don't pass enough, the missing arguments
+      will be taken as undefined.
+    </p>
+    <p>
+      But there's important behavior to see in functions. We can assign values
+      to arguments but override their values if we choose.
+    </p>
+    <script>
+      function exponentEquation(base, exponent = 2) {
+        let result = 1;
+        for (let count = 0; count < exponent; count++) {
+          result *= base;
+        }
+        return result;
+      }
+
+      console.log(exponentEquation(4)); //we pass 4 and let function keep 2 as the exponent
+      // → 16
+      console.log(exponentEquation(4, 4)); // we pass 4 AND change exponent 4 as well.
+      // → 256
+    </script>
+    <h5>Closure</h5>
+    <p>
+      We can call the same function twice but this doesn't cause problems. Why?
+      This is because the local bindings are created each time we call the
+      function. The multiple calls of the same function don't mess each other.
+      The ability to reference a specific instance of a local binding is called
+      CLOSURE!
+    </p>
+    <script>
+      //Closure at play...
+      function sayGreeting(msg) {
+        let greeting = msg;
+        return () => msg;
+      }
+      let hello1 = sayGreeting("What's up?"); //we can call sayGreeting here
+      let hello2 = sayGreeting("Yo dude!"); //and here without issues thanks to closure!
+      console.log(hello1());
+      console.log(hello2());
+      //We can get more complicated with closure here
+      function multiplier(factor) {
+        console.log(factor);
+        return (number) => number * factor; //the key is here, this is an arrow function that takes in a number as parameter and returns that number multiplied by the factor
+        //The return works because of CLOSURE. It captures the 2 when we called fX multiplier in twice, then it grabs the 6 as the factor and keeps 2 as the number to perform its operation
+      }
+      let twice = multiplier(2);
+      console.log(twice(6)); //yields 12
+      console.log(twice(7)); //yields 14
+    </script>
+    <h5>Recursion</h5>
+    <p>
+      Functions can call themselves within their own code code block! We can
+      cause infinite loops with Recursion if we're not careful. It does a form
+      of looping. To prevent infinite looping we need to make sure we have a
+      base condition that will stop the recursive function.
+    </p>
+    <script>
+      //Here's a recursive version of exponent function we've played with
+      function recursivePower(base, exponent) {
+        if (exponent === 0) {
+          console.log("Base condition present, recursion stopped");
+          return 1;
+        } else {
+          return base * recursivePower(base, exponent - 1);
+        }
+      }
+      console.log(recursivePower(3, 2));
+      //WebDev Simplified examples
+      //Let's write a for loop that counts down to zero from a starting number of our choice
+      function countDown(n) {
+        for (let i = n; i > 0; i--) {
+          console.log("Number: ", i);
+        }
+        console.log("For loop is done");
+      }
+      //now let's rewrite it with recursion
+      function recursiveCountdown(n) {
+        if (n <= 0) {
+          console.log("Recursive countdown stopped");
+          return;
+        }
+        console.log("Number during recursion", n);
+        recursiveCountdown(n - 1); //
+      }
+      /* How does this function actually work?
+      1. We call recursiveCountdown(3).
+      2. Is 3 <= 0? No, so we continue down the code block
+      3. We log 3 to the console
+      4. But then we call recursiveCountdown(3-1) and start over
+      5. Is 2 <= 0? No, so we continue down the code block
+      6. We log 2 to the console
+      7. But then we call recursiveCountdown(2-1) and start over
+      8. We go through again and eventually we get to the situation where ask: Is 0 <=0? YES! We hit the return statement and our recursion function stops.
+      */
+      //Write a recursive function that adds up numbers
+      //REMEMBER the if statement determines our base!
+      function recursiveCountUp(n) {
+        if (n >= 6) {
+          console.log("recursiveCountUp stopped");
+          return;
+        }
+        console.log("Number during count up:", n);
+        recursiveCountUp(n + 1);
+      }
+      //Let's do it again with addition
+      function sumRange(n) {
+        let total = 0;
+        for (let i = n; i > 0; i--) {
+          total += i;
+        }
+        return total;
+      }
+      //Now let's perform the same task with recursion
+      function recursiveAddition(n, total = 0) {
+        if (n <= 0) {
+          console.log("recursiveAddition stopped");
+          return total;
+        }
+        console.log(total);
+        return recursiveAddition(n - 1, total + n);
+      }
+      /* What happens when we do recursiveAddition(3)?
+      1. Is 3 <=0? No
+      2. The total is 0 during the 1st invoke of recursiveAddition()
+      3. We call recursiveAddition(3 - 1, 0 + 3)
+      4. Is 2 <=0? No
+      5. The total is now 3
+      6. We call recursiveAddition(2 - 1, 3 + 2)
+      7. Is 1 <=0? No
+      8. The total is now 5
+      9. We call recursiveAddition(1 - 1, 5 + 1)
+      10. Is 0 <=0? YES! We hit "return total" and the recursion stops!
+      */
+
+      //These are examples show us how recursion works but they don't take advantage of recursion. Let's see one where recursion is our friend!
+      //Goal: Print all names of every child within this tree.
+      function printChildrenRecursive(t) {
+        //1st: set up guard clause to end the recursion
+        if (t.children.length === 0) {
+          return;
+        }
+        t.children.forEach((child) => {
+          console.log(child.name);
+          printChildrenRecursive(child);
+        });
+      }
+      const tree = {
+        name: "John",
+        children: [
+          {
+            name: "Jim",
+            children: [],
+          },
+          {
+            name: "Zoe",
+            children: [
+              { name: "Kyle", children: [] },
+              {
+                name: "Sophia",
+                children: [
+                  { name: "Mike", children: [] },
+                  { name: "Lucy", children: [] },
+                ],
+              },
+            ],
+          },
+        ],
+      };
+    </script>
+    <h5>Growing Functions</h5>
+    <p>
+      Let's say we want to make a function thar prints the number of cows and
+      chickens we own with padded zeros up to three digits. For example if we
+      have 3 chickens and 10 cows we'd print:
+    </p>
+    <p>003 Chickens</p>
+    <p>010 Cows</p>
+    <p>
+      The JavaScript in this example is meant to show how we should write code
+      to keep us from repeating ourselves. We don't want to write more functions
+      that doing the same thing.
+    </p>
+    <script>
+      function printFarmInventory(cows, chickens) {
+        let cowString = String(cows); //Take the number of cows and convert to string
+        while (cowString.length < 3) {
+          //if length of cowString is less than 3 add zeros until it hits three
+          cowString = 0 + cowString;
+        }
+        console.log(`${cowString} Cows`);
+        let chickenString = String(chickens);
+        while (chickenString.length < 3) {
+          chickenString = 0 + chickenString;
+        }
+        console.log(`${chickenString} Chickens`);
+      }
+      //What if we want to know the inventory of another animal? We could do the following...
+      function printZeroPaddedWithLabel(amount, animal) {
+        let amountString = String(amount);
+        while (amountString.length < 3) {
+          amountString = "0" + amountString;
+        }
+        console.log(`${amountString} ${animal}`);
+      }
+
+      function printAnimalInventory(cows, chickens, pigs) {
+        printZeroPaddedWithLabel(cows, "Cows");
+        printZeroPaddedWithLabel(chickens, "Chickens");
+        printZeroPaddedWithLabel(pigs, "Pigs");
+      }
+      //But we can write easier code to understand but going after padding our animal count with zeros
+      function threeZeroPadding(amount, padding) {
+        let amountString = String(amount);
+        while (amountString.length < padding) {
+          amountString = "0" + amountString;
+        }
+        return amountString;
+      }
+
+      function printAnimalCountSimple(cows, chickens, pigs) {
+        console.log(`${threeZeroPadding(cows, 3)} Cows`);
+        console.log(`${threeZeroPadding(chickens, 3)} Chickens`);
+        console.log(`${threeZeroPadding(pigs, 3)} Pigs`);
+      }
+    </script>
+    <h5>Functions and Side Effects</h5>
+    <p>
+      Generally functions either do a side effect or return a value. FYI one
+      function can do both.
+    </p>
+    <p>
+      For example, our function that adds zeros to our animal count is giving us
+      a side effect
+    </p>
+    <p>
+      Whereas the function that tells us how many we have is return a value.
+    </p>
+    <p>
+      Functions that return values are generally more useful because we can use
+      them in different ways.
+    </p>
+    <h6>Pure Functions</h6>
+    <p>
+      These simply return a value with no side effect and isn't affected by any
+      other functions. They always produce the same value.
+    </p>
+    <script>
+      //Pure function example:
+      function add(a, b) {
+        return a + b; //this function always returns a + b
+      }
+      //Impure function example:
+      function subtract(c, d) {
+        console.log(c - d); //SIDE EFFECT!!
+        return c - d;
+      }
+    </script>
+    <h5>Summary</h5>
+    <script>
+      //Here's how we can write functions...
+      // Define f to hold a function value
+      const f = function (a) {
+        console.log(a + 2);
+      };
+
+      // Declare g to be a function
+      function g(a, b) {
+        return a * b * 3.5;
+      }
+
+      // A less verbose function value
+      let h = (a) => a % 3;
+      //Practice
+      //Write a function min that takes two arguments and returns their minimum.
+      function returnMins(numberOne, numberTwo) {
+        return Math.min(numberOne, numberTwo);
+      }
+      //Define a recursive function isEven corresponding to this description. The function should accept a single parameter (a positive, whole number) and return a Boolean.
+      function isEven(n) {
+        if (n < 0) {
+          console.log("isEven stopped");
+          return;
+        } else if (n % 2 === 0) {
+          isEven(n - 2);
+          console.log(n, true);
+        } else {
+          console.log(n, false);
+        }
+      }
+      //Bean counting
+      function countLetter(string, letter) {
+        let totalBs = 0;
+        for (let i = 0; i < string.length; i++) {
+          const element = string[i];
+          if (element === letter) {
+            totalBs += 1;
+          }
+        }
+        return totalBs;
+      }
+      console.log(countLetter("BB", "B"));
+    </script>
+  </body>
+</html>
