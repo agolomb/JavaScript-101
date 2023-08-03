@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chapter 1</title>
+  </head>
+  <body>
+    <h4>Values, Types, and Operators</h4>
+    Open up the console to see the results of the functions written in
+    JavaScript!
+
+    <p>
+      Computers store billions of bits in its memory. With JavaScript we
+      represent those bits in chunks called VALUES. Values can be integers,
+      decimals, strings, or even functions to name a few.
+    </p>
+    <h5>Numbers</h5>
+    <p>
+      When dealing with fractional numbers like Pi, these digital numbers are
+      approximations. They are not 100% precise like 1 or 15.
+    </p>
+    <h5>Arithmetic</h5>
+    <p>
+      We can do arithmetic with JavaScript. "+" and "*" are operators. When
+      order of operations matters, be sure to use () in your code to perform
+      your arithmetic as intended.
+    </p>
+    <h4>The MODULO operator %</h4>
+    <p>
+      The % operator is used when dealing with remainders. Here's some examples
+      to see how this works
+    </p>
+    <p>
+      314 % 100 = 14. What happened? 300/100 = 3 and then we have the remainder
+      of 14
+    </p>
+    <p>
+      144 % 12 = 0. What happened? 144/12 = 12. There's no remainder. So the
+      result is zero!
+    </p>
+    <p>Take a look in the console for some practice results of modulo.</p>
+    <h5>Special Numbers</h5>
+    <p>
+      Infinity and negative infinity are special numbers available to us but it
+      generally isn't very useful and will often yield NaN (also a special
+      number). Keep in mind the NaN is a number type in JavaScript.
+    </p>
+    <h5>Strings</h5>
+    <p>
+      Strings are text that are written inbetween '', "", or ``. Keep in mind
+      that if you went to start a new line in string (when press enter), you can
+      only do this when using the backticks OR when can use "\n" if using '' or
+      "" inside our string.
+    </p>
+    <h5>Backticks and strings</h5>
+    <p>
+      We can do more tricks with strings when we use the backtick. Look in the
+      console and the JavaScript examples for how this works. ***We call these
+      TEMPLATE LITERALS***
+    </p>
+    <h5>Unary Operators</h5>
+    <p>
+      typeof is a unary operator. The typeof unary operatory can ONLY take one
+      argument. If it you pass it more than it'll only read the last argument.
+    </p>
+    <h5>Boolean Values</h5>
+    <p>These are true and false.</p>
+    <h5>Comparison Operators</h5>
+    <p>This is when we use <, >, ==, ===, !=, >=, and <=</p>
+    <h5>Logical Operators</h5>
+    <p>This is when we use && or ||.</p>
+    <h5>Ternary Operator</h5>
+    <p>
+      This is a conditional operator where if the condition is true, we pick the
+      first value OTHERWISE we go with the second value.
+    </p>
+    <h5>Null and undefined</h5>
+    <p>
+      These are both considered to be empty. They are the absence of anything
+      meaningful. They are considered values but don't have any information. We
+      can treat both null and undefined interchangeably.
+    </p>
+    <h5>Type Coercion</h5>
+    <p>
+      This is an important part of JavaScript because it can cause problems.
+      Take a look at the JavaScript and console to see how this can cause
+      issues. It's best to use the triple equals "===" to defensively protect
+      our program from issues that can come from JavaScript's type coercion.
+    </p>
+    <h5>Odd behavior of Logical Operators && and || AKA Short Circuit</h5>
+    <p>
+      Both && and || will try to convert the first value (left side) to a
+      Boolean to make a decision. Then depending on what happens, it'll return
+      the original left side value or the right side value. ***If both are
+      falsy? The last value is returned. Look at JavaScript for demonstrations
+      of this phenomena.
+    </p>
+    <h5>Truthy and Falsy</h5>
+    <p>
+      Besides "true" and "false" certain values are interpreted as true or false
+      that we might not expect as humans. Like the number zero. Zero is
+      interpreted by the machine as false, so we say that zero is falsy. Another
+      example of a falsy is "" (an empty string).
+    </p>
+    <h5>Falsy Values</h5>
+    <ol>
+      <li>false: The boolean value false.</li>
+      <li>0: The number zero.</li>
+      <li>-0: Negative zero (uncommon).</li>
+      <li>'' (Empty String): An empty string.</li>
+      <li>null: Represents the absence of any value.</li>
+      <li>undefined: Represents the absence of a defined value.</li>
+      <li>
+        NaN: Stands for "Not-a-Number" and represents an invalid arithmetic
+        operation.
+      </li>
+    </ol>
+    <h5>Truthy values</h5>
+    <ol>
+      <li>true: The boolean value true.</li>
+      <li>
+        All non-zero numbers: Any positive or negative number, including
+        decimals.
+      </li>
+      <li>
+        Non-empty strings: Any string that contains at least one character.
+      </li>
+      <li>All objects: Including arrays, functions, and other objects.</li>
+      <li>Arrays: Even if they are empty, they are considered truthy.</li>
+      <li>
+        Functions: Even if they don't return anything explicitly, they are
+        truthy.
+      </li>
+      <li>
+        Special objects like Infinity and -Infinity: They are considered truthy.
+      </li>
+    </ol>
+  </body>
+
+  <script>
+    //Modulo examples
+    let hasRemainder = 155 % 6;
+    console.log("has remainder via modulo % operator", hasRemainder);
+    let noRemainder = 39 % 13;
+    console.log("has NO remainder via modulo % operator", noRemainder);
+
+    //Strings
+    let backTicks = `After type something,
+    I can hit ENTER and be on a new line`;
+    console.log("backTicks: ", backTicks);
+    let backSlash = "This is the first line\nAnd this is the second";
+    console.log(backSlash);
+    let twoBackSlashes = 'A newline character is written like "\\n".'; //Notice on the console that only one backslash prints to the console.
+    console.log("twoBackSlashes: ", twoBackSlashes);
+    let halfOf50 = `Half of 50 is ${50 / 2}`;
+    console.log(halfOf50);
+    //A VERY SIMPLE EXAMPLE OF TERNARY OPERATORS.
+    console.log(true ? 1 : 2); //We simply say the condition is true so it yields the first value
+
+    console.log(false ? 1 : 2); //We simply say the condition is false so it yields the second value
+
+    //Type Coercion
+    console.log("6" + 2); //Yields 62 even though we're adding a string to an integer
+    //BUT LOOK WHAT HAPPENS IF WE MINUS THE DATA TYPES
+    console.log("5" - 1); //Yields 4
+
+    console.log(null || "some text"); //null is falsey, so our || goes with the right side value
+    console.log("Alex" || "alex"); //"Alex" is considered true, so our || goes with the right side
+    console.log(null || undefined); //Chooses undefined, the last value
+    console.log(undefined || null); //Again, the last value.
+  </script>
+</html>

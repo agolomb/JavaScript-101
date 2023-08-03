@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chapter 2</title>
+  </head>
+  <body>
+    <h4>Program Structure</h4>
+    <h5>Bindings</h5>
+    <p>
+      To catch and hold values, JavaScript makes use of variables. Keywords let,
+      var, and const allow us to define a binding. Take a look at the JavaScript
+      to see how we do this.
+    </p>
+    <p>
+      Remember that with let and var, we can reassign the values that our
+      variables our bound to.
+    </p>
+    <p>
+      We can also bind values to variables in one line as long as we separate
+      them by commas. See the JavaScript and console below for examples of this.
+    </p>
+    <h5>Naming variables</h5>
+    <p>
+      Generally we can name variables anything we want but there's important
+      rules we must follow.
+    </p>
+    <ul>
+      <li>They can't start with integers.</li>
+      <li>The only special characters they can have are $ or _.</li>
+      <li>
+        You can't name a variable "let", "const", or "var". These are KEYWORDS
+        in JavaScript that have special abilities.
+      </li>
+      <li>
+        There's lots of other keywords in JavaScript with special abilities. WE
+        CANNOT use any of these to name our variables.
+      </li>
+      <li>Examples: return, for, typeof, while,</li>
+      <li>
+        There's many more, if the code breaks on your variable, check the name!
+      </li>
+    </ul>
+    <h4>FUNCTIONS</h4>
+    <p>
+      prompt() is an example of a default function. You can play with it the
+      console. You can type prompt("Enter password) to see it work. It's used
+      much in programming but it's helpful to play with and experiment.
+    </p>
+    <h5>Return values</h5>
+    <p>
+      When functions produce a value, we say that they return a value. Look at
+      the .max and .min examples in the JavaScript below to see some simple
+      examples with return at play.
+    </p>
+    <h5>Control Flow</h5>
+    <p>In JavaScript, the code is read from Top to Bottom.</p>
+    <h5>Conditonal Execution</h5>
+    <p>
+      Sometimes we might not want our code to be read in a straight line top to
+      bottom. We might want a certain thing to happen or something else to
+      happen. We call this Conditonal Execution! We is if statements to take
+      advantage of this. Look at the JavaScript to see this in action.
+    </p>
+    <p>
+      Type "squareMyNumber()" in the console to how this Conditional Execution
+      works.
+    </p>
+    <p>
+      With conditional execution, we can check for more than one condition. We
+      can use if, else if, and else to check lots of different conditions to
+      decide what code we want to execute.
+    </p>
+    <h5>While and Do Loops</h5>
+    <p>
+      Loops will let our code run multiple times for us. We can do these actions
+      with keyword "while", "for", "forEach", etc. There are many looping
+      functions we can do in JavaScript. Take a look at the JavaScript and the
+      console to see looping at play.
+    </p>
+    <p>
+      If we want count the number of times our while loop fires we can add in a
+      counter to our function. See JavaScript below for an example.
+    </p>
+    <p>
+      do loops are similar to while loops. However, do loops ALWAYS run at least
+      once, then check to see if they should keep going. Check the JavaScript
+      example to see how this works.
+    </p>
+    <h5>For Loops</h5>
+    <p>
+      For loops are shorter and more comprehensive way to write while loops.
+    </p>
+    <p>
+      We can also stop a for loop and get out of it with keyword "break". Take a
+      look at an example below with us using the modulo % operator
+    </p>
+    <h5>Dispatching on a value with switch</h5>
+    <p>
+      Sometimes you might see a bunch of if, else if, and else statements
+      written in a chain. The construct of "switch" can be used to make it
+      easier to read the same conditoinal logic.
+    </p>
+  </body>
+  <script>
+    let five = 5; // 5 is bound to the variable called five.
+    //But now we can do this...
+    console.log(five * five);
+    console.log(five * 5); //this works because the value of "five" is a number
+
+    //Reassignment of variables
+    var name = "Alex";
+    console.log("name: ", name);
+    //now reassign it
+    name = "ben";
+    console.log("reassigned name: ", name);
+    //We can do the exact same thing with let but not const
+    let number = 13;
+    console.log(number);
+    number = 20;
+    console.log(number);
+    //We can bind more than one value in one line
+    let one = 1,
+      two = 2,
+      three = 3;
+    var chocolate = "chocolate",
+      vanilla = "vanilla";
+
+    console.log(chocolate, " and ", vanilla);
+    // prompt(); //this is a built in function in JavaScript that pops up a dialog box with an input to type when we load the page.
+
+    //Return examples
+    console.log(Math.max(50, 70)); //Math.max will RETURN the largest number
+    console.log(Math.min(70, 50)); //Math.min will RETURN the smallest number
+
+    //Conditional execution.
+    function squareMyNumber(number) {
+      let integer = Number(prompt("Type a number"));
+      console.log(integer);
+      if (integer) {
+        console.log(`The integer ${integer} squared is:`, integer * integer);
+      } else {
+        console.log("You didn't type a number!");
+      }
+    }
+    //Conditional execution with if, else if, and else
+    function pickANumber(number) {
+      let numberPicked = Number(prompt("Type a number"));
+      console.log(numberPicked);
+      if (numberPicked < 50) {
+        console.log("Your number is below 50");
+      } else if (numberPicked >= 50 && numberPicked < 100) {
+        console.log("Your number is between 50 and 100");
+      } else {
+        console.log("Your number is greater than 100");
+      }
+    }
+    //Looping
+    let myLoopNumber = 1;
+    while (myLoopNumber < 5) {
+      myLoopNumber = myLoopNumber + 1;
+      console.log("Loop is firing!");
+      console.log("number getting looped through and adding 1: ", myLoopNumber);
+    }
+    //Looping with a counter
+    let startNumber = 1;
+    let counter = 0;
+    while (counter < 6) {
+      startNumber = startNumber + 1;
+      counter += 1; // we can also write our counter like this: counter = counter + 1;
+      console.log("counter: ", counter);
+    }
+    console.log("Result of while loop w/ a counter: ", startNumber);
+    //do-while loop example
+    let myName = "Alex";
+    /*
+    do {
+      myName = prompt("Enter your first name."); //the do loop fires and pulls up the prompt.
+    } while (myName !== "Alex"); //if this remains true, the loop keeps firing. Meaning if I don't type "Alex" the while piece is true. Once I type Alex, the while condition becomes false and exits the loop.
+    console.log("You entered 'Alex' and do loop stopped looping");
+    */
+    //Here's a really simple for loop.
+    for (let number = 0; number <= 12; number = number + 2) {
+      console.log("for loop is logging each number and stops at 12: ", number);
+    }
+    //For loop with a break when we use the modulo operator
+    /* We start at 1 and add 1 each time, when hit a number divisible by 5, our break fires and we exit the loop.
+     */
+    for (let i = 1; i <= 10; i++) {
+      if (i % 5 === 0) {
+        console.log(`${i} % is 0. Breaking out of the loop.`);
+        break;
+      }
+      console.log("Current number:", i);
+    }
+    //A common way to write if, else if, and else
+    let x = "value3";
+    if (x == "value1") console.log("x is value1");
+    else if (x == "value2") console.log("x is value2");
+    else if (x == "value3") console.log("x is value3");
+    else console.log("x isn't any of those");
+    //But let's see switch in action. If invoke fX checkWeather, then type something, it checks each "case", then if that case is true, it fires the console.log and hits the break, or it just keeps going and going until hits true or the default.
+    function checkWeather() {
+      switch (prompt("What is the weather like?")) {
+        case "rainy":
+          console.log("Remember to bring an umbrella.");
+          break;
+        case "sunny":
+          console.log("Dress lightly.");
+        //NO BREAK HERE, it tells us to dress lightly and go outside, the switch doesn't stop at the first true, it stops if it hits a break within a true case.
+        case "cloudy":
+          console.log("Go outside.");
+          break;
+        default:
+          console.log("Unknown weather type!");
+          break;
+      }
+    }
+    //Practice
+    for (let line = "#"; line.length < 8; line += "#") {
+      console.log(line);
+    }
+    //fizzbuzz
+    for (let i = 1; i < 100; i++) {
+      if (i % 3 === 0 && i % 5 === 0) {
+        console.log(i, "FizzBuzz");
+      } else if (i % 3 === 0) {
+        console.log(i, "Fizz");
+      } else if (i % 5 === 0) {
+        console.log(i, "Buzz");
+      }
+    }
+    //chessboard
+    // What variables do we need?
+    let size = 8;
+    let board = "";
+    //Hint: we're dealing with two dimensions so we'll need two for loops
+    for (let i = 0; i < size; i++) {
+      console.log("i", i); //we're looping 8 times vertical but we need loop 8 times across, that's the second for loop
+      for (let j = 0; j < size; j++) {
+        console.log("j", j); //this means we loop through every time we do the for loop above it, but notice how "i" and "j" are integers, we can take advantage of modulo to harness every other spot to set up the chessboard pattern
+        //We can set up the actual chessboard pattern with if logic
+        if ((i + j) % 2 === 0) {
+          board += " "; //if even number, add a " "
+        } else {
+          board += "#"; //if an odd number, add a "#"
+        }
+      }
+      //but how do we cause line breaks after each row? Answer: at the end of the second loop! On the 0th index we loop through the second for loop 8 times so we should add a line break then will go through the loop cycle all over again
+      board += "\n";
+    }
+    console.log(board);
+  </script>
+</html>
