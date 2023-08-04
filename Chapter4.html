@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chapter 4</title>
+  </head>
+  <body>
+    <h4>Data Structures: Objects and Arrays</h4>
+    <h5>Intro</h5>
+    <p>
+      Numbers, Booleans, and strings are the things that populate data
+      structures. These things go into OBJECTS! Objects can go inside other
+      objects. We use data structures to store information.
+    </p>
+    <h5>Data Sets</h5>
+    <h6>ARRAYS!</h6>
+    <p>
+      When we have lists of things. Numbers or maybe strings, an array is
+      probably a good choice for storing these lists of data. in JavaScript we
+      store them in [] brackets and we can access the items we want.
+    </p>
+    <script>
+      let listOfNumbers = [2, 3, 5, 7, 11];
+      console.log(listOfNumbers[2]); // → 5
+      console.log(listOfNumbers[0]); // → 2
+      console.log(listOfNumbers[2 - 1]); // 2 - 1 is 1 so we're grabbing the item at position 1. This is not item[2] - item[1]
+    </script>
+    <h5>Properties</h5>
+    <p>
+      In previous chapters we've used ".length" or "Math.min" on data. We're
+      accessing PROPERTIES of our values. .length, .min, .max, and many others
+      are the properties of objects. We access properties via Dot Notation or
+      Bracket Notation. Both value.x and value[x] access a property on value but
+      they might not get the same property.
+    </p>
+    <script>
+      let someNumbers = [2, 3, 5, 7, 11];
+      console.log(someNumbers.length); //We're accessing the length property of any via dot notation
+      someNumbers["length"]; //this accomplishes the same thing with bracket notation.
+      //If we want to grab the 2nd item?
+      someNumbers[2];
+      someNumbers["2"];
+      //Both of these ↑ will do the same thing
+    </script>
+    <h6>Square Bracket Notation</h6>
+    <p>
+      We use Square Bracket Notation to access properties of objects by their
+      name. This is better when our property names are dynamically generated or
+      if our names contain special characters.
+    </p>
+    <script>
+      // Example object
+      const person = {
+        name: "John Doe",
+        age: 30,
+        occupation: "Engineer",
+      };
+
+      // Dynamic property access using square bracket notation
+      const propertyName = "name";
+      console.log(person[propertyName]); // Output: "John Doe"
+
+      const propKey = "age";
+      console.log(person[propKey]); // Output: 30
+
+      // Square bracket notation is also useful for accessing properties with special characters.
+      const objWithSpecialChars = {
+        "property with space": "Hello, world!",
+        1234: "Numeric property",
+      };
+
+      console.log(objWithSpecialChars["property with space"]); // Output: "Hello, world!"
+      console.log(objWithSpecialChars["1234"]); // Output: "Numeric property"
+    </script>
+    <h6>Dot Notation</h6>
+    <p>
+      Dot Notation is the most common and straigtforward. We can access object
+      properties when we know the name of the property.
+    </p>
+    <script>
+      // Example object
+      const human = {
+        name: "John Doe",
+        age: 30,
+        occupation: "Engineer",
+      };
+
+      // Accessing properties using dot notation
+      console.log(human.name); // Output: "John Doe"
+      console.log(human.age); // Output: 30
+      console.log(human.occupation); // Output: "Engineer"
+    </script>
+    <h5>Methods</h5>
+    <p>
+      String and array values have properties that can do things. .length tells
+      us how many items it has but for example we have .toUpperCase.
+      .toUpperCase is a method that will take all the letters in a string and
+      convert them to upper case. We say "toUpperCase is a method of a string."
+    </p>
+    <h5>Arrays</h5>
+    <p>
+      There are lots of methods of arrays. For example: push, pop, slice, etc.
+    </p>
+    <h5>Objects</h5>
+    <p>
+      Objects are a fundamental data type and are used to store collections of
+      key-value pairs. The key is the property name and the value is what the
+      property actually is.
+    </p>
+    <script>
+      //Simple example of an object...
+      const simpleObject = {
+        name: "John Doe",
+        age: 30,
+        occupation: "Engineer",
+        isEmployed: true,
+      };
+      //The keys are name, age, occupation, and isEmployed
+      //The values are "John Doe", 30, "Engineer", and true
+    </script>
+    <p>
+      Sometimes we might see keys in "". This means the key is not a valid
+      binding name. Remember how we name variables, we can apply similar rules
+      when we define our keys. If we don't want quotes around our keys we CANNOT
+      start them with integers, they CANNOT have special characters like spaces
+      or #. It is OK to start them with _ and they are case sensitive.
+    </p>
+    <script>
+      const quotesNeeded = {
+        "first name": "John",
+        "last name": "Doe",
+        "occupation#": "Engineer",
+      };
+      /* This can cause problems because of JavaScript's type coercion. Keys 1, 2, 3 will automatically convert to strings. 
+      While this code won't break anything now it's a bad practice because we can access the same data if target a key with
+      [1] or ['1']. Also const numbers looks like an array and you shouldn't substitute an object for an array.
+*/
+      const numbers = {
+        1: "One",
+        2: "Two",
+        3: "Three",
+      };
+    </script>
+    <h5>More on Objects</h5>
+    <p>
+      Properties are holding values but we can delete this grapsing of the
+      value. We can also ask our objects if they have certain properties.
+    </p>
+    <script>
+      //Using the "delete" and "in" operators
+      let anObject = { left: 1, right: 2 };
+      console.log(anObject.left); // → 1
+      delete anObject.left; // We deleted the key of "left" from our object
+      console.log(anObject.left); // → undefined, b/c we deleted it, it's gone!
+      console.log("left" in anObject); // → false, we asked if key "left" exists IN "anObject"
+      console.log("right" in anObject); // → true,  we asked if key "right" exists IN "anObject"
+
+      //What if I want to know the keys and object has? W use "Object" keyword with the "keys" method
+      console.log(Object.keys({ x: 0, y: 0, z: 2 }));
+      //We can also add keys and change the value of keys
+      let objectA = { a: 1, b: 2 };
+      Object.assign(objectA, { b: 3, c: 4 });
+      console.log(objectA); // → {a: 1, b: 3, c: 4}
+    </script>
+    <h5>Arrays</h5>
+    <p>
+      Arrays are type of object used for storing sequences of data. We can store
+      lots of objects within arrays.
+    </p>
+    <h5>Mutability</h5>
+    <p>
+      We can change an object's properties. We can change the values that
+      properties point to. However we need to understand how objects behave when
+      they might look the same in our code.
+    </p>
+    <script>
+      let object1 = { value: 10 };
+      let object2 = object1;
+      let object3 = { value: 10 };
+      console.log(object1 == object2); // → true, this is b/c object2 points to object1 so they are indeed the same
+      console.log(object1 == object3); // → false, object1 and object3 look the same but they are NOT related in anyway. That's why it's false.
+      //Another important thing to understand is that object2 is bound to object1. If we change the value of object1, object2's value will change also.
+      object1.value = 15;
+      console.log(object2.value); // → 15
+      object2 = "something else"; //but object2 can be changed again!
+      console.log(object2); // → "something else"
+    </script>
+    <h5>Adding Data to an Object</h5>
+    <p></p>
+    <script>
+      let journal = []; //here's our storage object
+      function addEntry(events, squirrel) {
+        journal.push({ events, squirrel });
+      } //we've added events and squirrel properties
+      addEntry();
+      console.log(journal); //shows us in the console that it worked
+    </script>
+    <h4>The Lycanthrope’s log</h4>
+    <p>Please see the lycanthrope.html doc for this concept</p>
+    <h4>More on Arrays</h4>
+    <p>
+      Push and Pop are two many methods we can use with objects that are arrays.
+      Pop will remove the last element of the array. Push will add an element to
+      the end of an array. We also have unshift and shift to add or remove
+      elements to arrays.
+    </p>
+    <script>
+      //Let's use different methods on a to do list array
+      let toDoList = [];
+      function addTask(task) {
+        toDoList.push(task);
+      }
+      addTask("Wake Up");
+      addTask("Eat breakfast");
+      console.log("To Dos pushed: ", toDoList);
+      //So now we're awake
+      //Let's move that task to the back of the list because we need to do our next task
+      function getTask() {
+        //console.log("To Do we're shifting: ", toDoList.shift());
+        return toDoList.shift();
+      }
+      getTask();
+      console.log("To Do's remaining: ", toDoList);
+      //But whoops we need to make coffee first
+      function rememberUrgently(task) {
+        toDoList.unshift(task);
+      }
+      rememberUrgently("Make coffee");
+      console.log("We unshift coffee to the list: ", toDoList);
+    </script>
+    <h4>Searching through Arrays</h4>
+    <p>
+      We can use the indexOf method to find the index position of an argument.
+      We can use the lastIndexOf method to find the last index position of an
+      argument. If the argument is not present, these methods will return -1.
+    </p>
+    <script>
+      console.log([1, 2, 3, 2, 1].indexOf(2)); //tell me the index position when you find 2
+      console.log([1, 2, 3, 2, 1].lastIndexOf(2)); //tell me the index position of when you find 2 STARTING BACKWARDS!!
+      console.log([1, 2, 3, 2, 1].indexOf(4)); //tell me the index position when you find 4, but it doesn't exist, so we get a -1!
+      //We have the option to pass a second argument telling it where to start searching!
+      console.log(
+        [1, 2, 3, 2, 1, 2, 3, 2, 1, 2, 3, 2, 1, 2, 3, 2, 1].indexOf(2, 6)
+      ); //tell me the index position when you find 2 BUT start at index position 6
+      console.log(
+        [1, 2, 3, 2, 1, 3, 2, 1, 3, 2, 1, 3, 2, 1, 3, 2, 1].lastIndexOf(2, 7)
+      ); //tell me the index position of when you find 2 STARTING BACKWARDS but start at position 7 going backwards!!
+    </script>
+    <h4>Slicing up arrays into chunks we want.</h4>
+    <p>
+      We can apply the .slice method and pass it the starting and ending index
+      positions.
+    </p>
+    <script>
+      console.log([0, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4].slice(3, 6)); //start at position 3 and stop at position 5 (don't take position 6)
+      //What if we don't pass an ending position?
+      console.log([0, 1, 2, 3, 4, 1, 2, 3, 4, 1, 2, 3, 4].slice(3)); //start at position 3 and go till the end
+      //We can combine .slice and .concat together to modifies arrays
+
+      function remove(array, index) {
+        return array.slice(0, index).concat(array.slice(index + 1));
+      }
+      /* What's happening?
+      The 1st slice starts 0 and goes to 1 to make ["a", "b"].
+      Then we're adding another result from a slice.
+      2nd slice: add 1 to our index AKA 2 + 1 so we start position 3 and give us back the rest of the array
+      3rd. the .concat adds the two slices together into an array
+      */
+      console.log(remove(["a", "b", "c", "d", "e"], 2));
+    </script>
+    <h4>Strings and their Properties</h4>
+    <p>
+      We can use slice, indexOf, and other methods strings. Not just arrays of
+      integers.
+    </p>
+    <script>
+      console.log("pineapples".slice(4, 7));
+      console.log("pineapples".indexOf("p", 1));
+      console.log("one two three four five six".indexOf("iv")); //tells us that "iv" starts at position 20
+      console.log("  no whitespace!         ".trim()); //removes spaces on either side of the data
+      //From the previous lesson we added zeros!
+      console.log(String(7).padStart(3, "0")); //we're padding our 7 string with 3 zeros, we only see two because 007 is a three digit number
+      //We can make arrays out of strings!
+      let sentence = "Secretarybirds specialize in stomping";
+      let words = sentence.split(" ");
+      console.log(words); // → ["Secretarybirds", "specialize", "in", "stomping"]
+      console.log(words.join(", ")); // → Secretarybirds, specialize, in, stomping
+      //We can repeat a string
+      console.log("Ha".repeat(4));
+    </script>
+    <h4>Rest Parameters</h4>
+    <p>
+      We might want a function to be able to take in ANY amount of arguments. We
+      can use "..." and the parameter name to do this.
+    </p>
+    <script>
+      function max(...numbers) {
+        let result = -Infinity;
+        for (let number of numbers) {
+          if (number > result) result = number;
+        }
+        return result;
+      }
+      console.log(max(4, 1, 9, -2, 10, -12, 100)); //we add as many numbers as we want!!
+    </script>
+    <h4>The Math object</h4>
+    <p>
+      The Math object is very useful in JavaScript to perform many different
+      calculations. Math.random can be helpful to generate a random number for
+      us.
+    </p>
+    <script>
+      console.log(Math.random()); //this gives a number between 0 and 1. What if we want a random integer?
+      console.log(Math.random() * 10); //now we get a random number between 1 and 9
+      console.log(Math.floor(Math.random() * 10)); //With the .floor method we grab the smallest whole number from our random number
+    </script>
+    <h4>Destructuring</h4>
+    <p>This is useful to work with specific properties on objects we'll see.</p>
+    <script>
+      // Basic array destructuring
+      const integers = [1, 2, 3];
+      const [first, second, third] = integers;
+
+      console.log(first); // Output: 1
+      console.log(second); // Output: 2
+      console.log(third); // Output: 3
+
+      // Skip elements
+      const [, , thirdElement] = integers;
+      console.log(thirdElement); // Output: 3
+
+      //Swapping values using array destructuring
+      let a = 5;
+      let b = 10;
+
+      [a, b] = [b, a];
+
+      console.log(a); // Output: 10
+      console.log(b); // Output: 5
+
+      // Basic object destructuring
+      const employee = { name: "John", age: 30, city: "New York" };
+      const { name, age, city } = employee;
+
+      console.log(name); // Output: John
+      console.log(age); // Output: 30
+      console.log(city); // Output: New York
+
+      //Renaming variables during object destructuring
+      const friend = { name: "Jimmy", age: 20, city: "Oakland" };
+      const { name: fullName, age: years, city: residence } = friend;
+
+      console.log(fullName); // Output: Jimmy
+      console.log(years); // Output: 20
+      console.log(residence); // Output: Oakland
+
+      //Destructuring with default values
+      const student = { lastName: "Smith", lunch: "Pizza" };
+      const { lastName, lunch, state = "Unknown" } = student;
+
+      console.log(lastName); // Output: Smith
+      console.log(lunch); // Output: Pizza
+      console.log(state); // Output: Unknown
+
+      //Nested Destructuring
+      const user = {
+        firstName: "Billy",
+        id: 555,
+        address: {
+          zip: 12345,
+          country: "USA",
+        },
+      };
+      const {
+        firstName,
+        address: { zip, country },
+      } = user;
+
+      console.log(firstName); // Output: Billy
+      console.log(zip); // Output: 12345
+      console.log(country); // Output: USA
+    </script>
+    <h4>JSON</h4>
+    <p>
+      JSON stands for JavaScript Object Notation. We can convert data in JSON
+      format and vice versa. It's well known way to store data. It's used in
+      programming a lot!
+    </p>
+    <script>
+      //JSON.parse(text[, reviver]) is used to convert a JSON object into JavaScript object
+      //the [, reviver] part is optional but we can add conditional logical to have our parse modify our data if needed
+      const jsonString = '{"name": "Tommy", "age": 23, "city": "Detroit"}'; //This looks like a string in VS Code but this data is in JSON
+
+      const parsedObject = JSON.parse(jsonString, (key, value) => {
+        if (key === "age") {
+          return value * 2; // Double the age, the reviver in action here!
+        }
+        return value;
+      });
+      console.log(parsedObject); //parsedObject is now a regular object we can work with in JavaScript
+      console.log(parsedObject.name); // We wouldn't be able to do jsonString.name
+      //JSON.stringify(value[, replacer[, space]]) will convert JavaScript objects into JSON
+      // the [, replacer[, space]] are optional parts as well
+      const player = {
+        name: "Brock",
+        number: 10,
+        city: "San Francisco",
+      };
+      const javaScriptObject = JSON.stringify(player, (key, value) => {
+        if (key === "number") {
+          return value * 2; // Double the number, the replacer in action here!
+        }
+        return value;
+      });
+
+      console.log(javaScriptObject);
+      // Output: {"name":"Brock","number":20,"city":"San Francisco"}
+      //Here's an example with the [space] part in use
+      const member = { name: "John", age: 30, city: "New York" };
+      const jsonMember = JSON.stringify(person, null, 2);
+      console.log(jsonMember);
+      /* Output:
+      {
+        "name": "John",
+        "age": 30,
+        "city": "New York"
+      }
+      */
+    </script>
+    <script>
+      //Practice
+      //Sum of a range
+      function range(start, end, step = start < end ? 1 : -1) {
+        console.log("step: ", step);
+        //What does the step part do? It compares the start and end to determine if our range is ascending or descending
+        let array = [];
+
+        if (step > 0) {
+          //if the step is positive, increment by the step
+          for (let i = start; i <= end; i += step) array.push(i);
+        } else {
+          //if the step is negative, decrement by the step
+          for (let i = start; i >= end; i += step) array.push(i);
+        }
+        return array;
+      }
+
+      function sum(array) {
+        let total = 0;
+        for (let value of array) {
+          total += value;
+        }
+        return total;
+      }
+
+      console.log(range(1, 10));
+      // → [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      console.log(range(10, 1));
+      console.log(range(20, 2, -3));
+      // → [20, 17, 14, 11, 8, 5, 2]
+      console.log(range(2, 20, 3));
+      // → [2, 5, 8, 11, 14, 17, 20]
+      console.log(sum(range(1, 10)));
+      // → 55
+
+      //Reversing an array
+      //Write function called reverseArray,that takes an array as argument and produces a new array that has the same elements in the inverse order.
+      const alphabet = ["a", "b", "c", "d"];
+      const reverseAlphabet = alphabet.toReversed(); //this is preferred over .reverse() because it doesn't mutate our original array but instead produce a new one
+      console.log(reverseAlphabet);
+      console.log(alphabet);
+      //Let's do the same thing with a for loop
+      function reverseArray(array) {
+        let output = [];
+        for (let i = array.length - 1; i >= 0; i--) {
+          //let i = alphabet.length - 1 → this is how we start at the last index position
+          //i >= 0 → this is part of the reverse order so our loop stops when hit 0 AKA the 0th position in our index
+          //i -- → the syntax to decrement our index
+          output.push(array[i]);
+        }
+        return output;
+      }
+      console.log(reverseArray([5, 6, 7, 8]));
+
+      //Now let's modify our existing array
+      let originalArray = [4, 5, 6, 7];
+      const reverseArrayInPlace = (array) => {
+        for (let i = 0; i < Math.floor(array.length / 2); i++) {
+          //let i = 0 → to start at the 0th position
+          //i < Math.floor(array.length / 2) → This makes the loop iterate to mid point of our array.
+          let oldArray = array[i];
+          array[i] = array[array.length - 1 - i]; //here's us REASSIGNING THE 0TH to the 3RD index position, the SWAPPING occurs here
+          array[array.length - 1 - i] = oldArray;
+        }
+        return array;
+      };
+      console.log(reverseArrayInPlace(originalArray));
+
+      //A List
+      //Write a function arrayToList that builds up a list structure like the one shown when given [1, 2, 3] as argument.
+      function arrayToList(array) {
+        let list = null; //Need a variable to store the list
+        for (let i = array.length - 1; i >= 0; i--) {
+          //let i = array.length - 1; We need the array to start at the end
+          //i >= 0; Loop stops when it hits 0
+          //i-- i will continue to decrement
+          list = { value: array[i], rest: list }; //we need say what our list object looks like
+        }
+        return list;
+      }
+      console.log(arrayToList([10, 20, 30, 40]));
+      //write a listToArray function that produces an array from a list
+      function listToArray(listObject) {
+        let testArray = [];
+        for (let i = listObject; i; i = i.rest) {
+          //let i = listObject; each i needs to be each object within the list object
+          //the lone "i" means we'll stop when run out of each object within the list object
+          //i = i.rest, we need to tell it when what each i actually is so it keep going through our nested list
+          testArray.push(i.value); //We need to PUSH/ADD each value to our array, we don't want rest in our array
+        }
+        return testArray;
+      }
+      console.log(listToArray(arrayToList([10, 20, 30])));
+      //add a helper function prepend, which takes an element and a list and creates a new list that adds the element to the front of the input list
+      function prepend(value, list) {
+        return { value, rest: list };
+      }
+      console.log(prepend(50, prepend(60, prepend(70, null)))); // → {value: 10, rest: {value: 20, rest: null}}
+      //Write a recursive function that returns the first item if present
+      function nth(list, n) {
+        if (!list) return "recursion stopped"; //guard clause
+        else if (n === 0)
+          return list.value; //return the 0th list.value if our list only has one value
+        else return nth(list.rest, n - 1); //if call nth again with nested "rest" list, the cycle repeats
+      }
+      console.log(nth(arrayToList([10, 20, 30]), 2));
+      //Deep Comparison
+      //Write a function deepEqual that takes two values and returns true only if they are the same value or are objects with the same properties
+      function deepEqual(a, b) {
+        if (a === b) return true;
+        //↑ are they strictly equal? Do they point to the same object in memory, if true, we're done
+        if (
+          a == null ||
+          typeof a != "object" ||
+          b == null ||
+          typeof b != "object"
+        )
+          return false;
+        //↑ if a OR b are null, or either one IS NOT an object, false, and we're done
+        let keysA = Object.keys(a),
+          keysB = Object.keys(b);
+        //↑ we harness the keys of a and b,
+        if (keysA.length != keysB.length) return false;
+        //↑ if the amount of keys between a and b don't match, they can't be equal, false, we're done
+        for (let key of keysA) {
+          //↑ we'll check every key in a
+          if (!keysB.includes(key) || !deepEqual(a[key], b[key])) return false;
+          //↑ 1st: if b doesn't have any of a's keys, false, we're done
+          //2nd: Recursion: if that first condition is false, we immediately invoke deepEqual and pass the keys of a & b and recheck
+        }
+
+        return true;
+      }
+      let obj = { here: { is: "an" }, object: 2 };
+      console.log(deepEqual(obj, obj));
+      // → true
+      console.log(deepEqual(obj, { here: 1, object: 2 }));
+      // → false
+      console.log(deepEqual(obj, { here: { is: "an" }, object: 2 }));
+      // → true
+    </script>
+  </body>
+</html>
